@@ -1,8 +1,9 @@
 package com.jyall.resource;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.core.MediaType;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,7 +28,7 @@ import java.util.UUID;
  * Created by wang.linqiao on 2016/10/20.
  */
 @Controller
-@Api(description = "上传文件相关接口")
+@Api(description = "上传文件相关接口",produces = MediaType.APPLICATION_JSON,value = "/file")
 public class FileUploadResource {
 
     private Logger logger = LoggerFactory.getLogger(FileUploadResource.class);
@@ -54,13 +55,11 @@ public class FileUploadResource {
         }
     }
 
-    @ApiIgnore
     @RequestMapping(value = "/toUpload",method = RequestMethod.GET)
     public String toUpload(){
         return "/file";
     }
 
-    @ApiIgnore
     @RequestMapping(value = "/batch/toUpload",method = RequestMethod.GET)
     public String toUploads(){ return  "/mutifile";}
 
